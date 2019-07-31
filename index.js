@@ -5,10 +5,6 @@ const surfServices = require('./services/surfConditions.js');
 
 const bot = new TeleBot(process.env.TELEGRAM_TOKEN);
 
-// surfServices.getConditions({ msg: '', beach: 'Marbella' }).then((response) => {
-//   console.log(response.msg);
-// });
-
 bot.on(/^\/playa (.+)$/, (msg, props) => {
   const data = {
     msg: '', 

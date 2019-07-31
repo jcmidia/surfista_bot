@@ -1,7 +1,7 @@
 const TeleBot = require('telebot');
 const axios = require('axios');
 const parser = require('fast-xml-parser');
-console.log(process.env.TELEGRAM_TOKEN);
+
 const bot = new TeleBot(process.env.TELEGRAM_TOKEN);
 
 bot.on(/^\/playa (.+)$/, (msg, props) => {

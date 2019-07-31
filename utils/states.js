@@ -10,6 +10,9 @@ module.exports = {
       case 2:
         return 'Alto'
       break;
+      default:
+        return 'Regular'
+      break;
     }
   },
 
@@ -24,6 +27,9 @@ module.exports = {
       case 3:
         return 'Malo'
       break;
+      default:
+        return 'Regular'
+      break;
     }
   },
 
@@ -35,10 +41,14 @@ module.exports = {
       case 2:
         return 'Sí'
       break;
+      default:
+        return 'No'
+      break;
     }
   },
 
   flagState: function (state) {
+    console.log(state);
     switch (state) {
       case 1:
         return 'Bandera verde: Permitido bañarse'
@@ -48,6 +58,9 @@ module.exports = {
       break;
       case 3:
         return 'Bandera roja: Prohibido bañarse'
+      break;
+      default:
+          return 'Bandera amarilla: Bañarse con precaución'
       break;
     }
   },
@@ -62,6 +75,9 @@ module.exports = {
       break;
       case 3:
         return '🛑'
+      break;
+      default:
+        return '⚠️'
       break;
     }
   }

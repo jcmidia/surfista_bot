@@ -1,0 +1,25 @@
+{
+  "name": "surfista_bot",
+  "version": "1.0.0",
+  "description": "A surfer bot for Telegram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcmidia/surfista_bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcmidia/surfista_bot/issues"
+  },
+  "homepage": "https://github.com/jcmidia/surfista_bot#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "fast-xml-parser": "^3.12.19",
+    "telebot": "^1.2.6"
+  }
+}

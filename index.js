@@ -1,3 +1,4 @@
+const http = require('http');
 const TeleBot = require('telebot');
 const axios = require('axios');
 const parser = require('fast-xml-parser');
@@ -19,6 +20,15 @@ bot.on('/playas', (msg) => {
 });
 
 bot.start();
+
+const PORT = process.env.PORT || 3000;
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.write('Hello World!');
+  res.end();
+}).listen(PORT, () => {
+  console.log(`Our app is running on port ${ PORT }`);
+});
 
 function getBeachState(beach) {
   return new Promise(function (resolve, reject) {

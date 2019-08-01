@@ -1,104 +1,85 @@
 module.exports = {
-  uvi: function (state) {
+  uvi: function(state) {
     switch (state) {
       case 0:
-        return 'Bajo'
-      break;
+        return 'Bajo';
       case 1:
-        return 'Bueno'
-      break;
+        return 'Bueno';
       case 2:
-        return 'Regular'
-      break;
+        return 'Regular';
       case 3:
-        return 'Alto ❗️'
-      break;
+        return 'Alto ❗️';
       case 4:
-        return 'Muy alto 👹'
-      break;
+        return 'Muy alto 👹';
       default:
-        return 'Sin información'
-      break;
+        return 'Sin información';
     }
   },
 
-  seaQuality: function (state) {
+  seaQuality: function(state) {
     switch (state) {
       case 1:
-        return 'Bueno'
-      break;
+        return 'Bueno';
       case 2:
-        return 'Regular'
-      break;
+        return 'Regular';
       case 3:
-        return 'Malo'
-      break;
+        return 'Malo';
       default:
-        return 'Sin información'
-      break;
+        return 'Sin información';
     }
   },
 
-  hasJeallyfish: function (state) {
+  hasJeallyfish: function(state) {
     switch (state) {
       case 1:
-        return 'No'
-      break;
+        return 'No';
       case 2:
-        return 'Sí'
-      break;
+        return 'Sí';
       default:
-        return 'Sin información'
-      break;
+        return 'Sin información';
     }
   },
 
-  flagState: function (state) {
+  flagState: function(state) {
     switch (state) {
       case 1:
-        return 'Bandera verde: Permitido bañarse'
-      break;
+        return 'Bandera verde: Permitido bañarse';
       case 2:
-        return 'Bandera amarilla: Bañarse con precaución'
-      break;
+        return 'Bandera amarilla: Bañarse con precaución';
       case 3:
-        return 'Bandera roja: Prohibido bañarse'
-      break;
+        return 'Bandera roja: Prohibido bañarse';
       default:
-          return 'Sin información'
-      break;
+        return 'Sin información';
     }
   },
 
-  moreInfo: function (state) {
+  moreInfo: function(state) {
     switch (state) {
       case 5:
-        return 'Residuos flotantes 💩\n'
-      break;
+        return 'Residuos flotantes 💩\n';
       default:
-          return ''
-      break;
+        return '';
     }
   },
 
-  flag: function (state) {
+  flag: function(state) {
     switch (state) {
       case 1:
-        return '✅'
-      break;
+        return '✅';
       case 2:
-        return '⚠️'
-      break;
+        return '⚠️';
       case 3:
-        return '🛑'
-      break;
+        return '🛑';
       default:
-        return ''
-      break;
+        return '';
     }
   },
 
-  formatString: function (text) {
-    return text.toLowerCase().replace(/[^a-zA-Z]/g, "");
-  }
-}
+  formatString: function(text) {
+    const newText = text
+      .toLowerCase()
+      .replace(new RegExp("[àáâãäå]", 'g'),"a")
+      .replace(/[^a-zA-Z]/g, '');
+    return newText;
+  },
+};

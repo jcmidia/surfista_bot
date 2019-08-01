@@ -1,0 +1,21 @@
+{
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "plugins": ["prettier"],
+    "rules": {
+        "no-console": "off",
+        "vue/max-attributes-per-line": "off",
+        "prettier/prettier": ["error", {
+            "semi": true,
+            "singleQuote": true,
+            "trailingComma": "all"
+        }]
+    }
+}

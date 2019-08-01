@@ -25,7 +25,7 @@ module.exports.getConditions = function (data) {
 
         resolve(data);
       }).catch((error) => {
-        console.log(error.response.statusText);
+        if (error.response) console.log(error.response);
         resolve(data);
       });
     });

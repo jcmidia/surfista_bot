@@ -11,10 +11,10 @@ module.exports = {
         return 'Regular'
       break;
       case 3:
-        return 'Alto'
+        return 'Alto ❗️'
       break;
       case 4:
-        return 'Muy alto'
+        return 'Muy alto 👹'
       break;
       default:
         return 'Sin información'

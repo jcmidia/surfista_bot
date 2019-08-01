@@ -46,6 +46,14 @@ bot.on('/playas', (msg) => {
   });
 });
 
+bot.on('/listado', (msg) => {
+  beachServices.getList().then((response) => {
+    return bot.sendMessage(msg.from.id, response.msg, { replyToMessage: msg.message_id, parseMode: 'html' });
+  }).catch((error) => {
+    console.log(error);
+  });
+});
+
 bot.start();
 
 const PORT = process.env.PORT || 3000;

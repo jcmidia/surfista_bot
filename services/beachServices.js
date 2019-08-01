@@ -20,8 +20,7 @@ module.exports.getConditions = function (data) {
             data.msg += `\n<b>${element.nomPlatja}</b>\n`
           }
 
-          if (Utils.formatString(element.nomPlatja) === Utils.formatString(data.beach) || 
-              Utils.formatString(data.beach) === null) {
+          if (data.beach === null || Utils.formatString(element.nomPlatja) === Utils.formatString(data.beach)) {
             data.msg += `Calidad del agua: ${Utils.seaQuality(element.qualitatAigua)} ${Utils.flag(element.estatBandera)}\n`
                 + `Medusas: ${Utils.hasJeallyfish(element.Meduses)}\n`
                 + `Estado del mar: ${Utils.seaQuality(element.estatMar)}\n`

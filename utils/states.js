@@ -73,7 +73,7 @@ module.exports = {
   moreInfo: function (state) {
     switch (state) {
       case 5:
-        return 'Residuos flotantes\n'
+        return 'Residuos flotantes 💩\n'
       break;
       default:
           return ''

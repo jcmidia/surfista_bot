@@ -20,11 +20,13 @@ module.exports.getConditions = function (data) {
             data.msg += `\n<b>${element.nomPlatja}</b>\n`
           }
 
-          if (element.nomPlatja === data.beach || data.beach === null) {
+          if (Utils.formatString(element.nomPlatja) === Utils.formatString(data.beach) || 
+              Utils.formatString(data.beach) === null) {
             data.msg += `Calidad del agua: ${Utils.seaQuality(element.qualitatAigua)} ${Utils.flag(element.estatBandera)}\n`
                 + `Medusas: ${Utils.hasJeallyfish(element.Meduses)}\n`
                 + `Estado del mar: ${Utils.seaQuality(element.estatMar)}\n`
-                + `${Utils.flagState(element.estatBandera)}\n`;
+                + `${Utils.flagState(element.estatBandera)}\n`
+                + Utils.moreInfo(element.infoAdicional);
           }
         });
 

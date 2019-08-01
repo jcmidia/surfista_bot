@@ -1,7 +1,7 @@
 const http = require('http');
 const TeleBot = require('telebot');
-const beachServices = require('./services/beachConditions.js');
-const surfServices = require('./services/surfConditions.js');
+const beachServices = require('./services/beachServices.js');
+const surfServices = require('./services/surfServices.js');
 
 const bot = new TeleBot(process.env.TELEGRAM_TOKEN);
 

@@ -5,13 +5,19 @@ module.exports = {
         return 'Bajo'
       break;
       case 1:
-        return 'Regular'
+        return 'Bueno'
       break;
       case 2:
+        return 'Regular'
+      break;
+      case 3:
         return 'Alto'
       break;
+      case 4:
+        return 'Muy alto'
+      break;
       default:
-        return 'Regular'
+        return 'Sin información'
       break;
     }
   },
@@ -28,7 +34,7 @@ module.exports = {
         return 'Malo'
       break;
       default:
-        return 'Regular'
+        return 'Sin información'
       break;
     }
   },
@@ -42,13 +48,12 @@ module.exports = {
         return 'Sí'
       break;
       default:
-        return 'No'
+        return 'Sin información'
       break;
     }
   },
 
   flagState: function (state) {
-    console.log(state);
     switch (state) {
       case 1:
         return 'Bandera verde: Permitido bañarse'
@@ -60,7 +65,18 @@ module.exports = {
         return 'Bandera roja: Prohibido bañarse'
       break;
       default:
-          return 'Bandera amarilla: Bañarse con precaución'
+          return 'Sin información'
+      break;
+    }
+  },
+
+  moreInfo: function (state) {
+    switch (state) {
+      case 5:
+        return 'Residuos flotantes\n'
+      break;
+      default:
+          return ''
       break;
     }
   },
@@ -77,8 +93,12 @@ module.exports = {
         return '🛑'
       break;
       default:
-        return '⚠️'
+        return ''
       break;
     }
+  },
+
+  formatString: function (text) {
+    return text.toLowerCase().replace(/[^a-zA-Z]/g, "");
   }
 }

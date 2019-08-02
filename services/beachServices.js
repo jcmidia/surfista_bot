@@ -83,7 +83,6 @@ function buildMessage(response, beach) {
         const hasJeallyfish = Utils.hasJeallyfish(element.Meduses);
         const seaState = Utils.seaQuality(element.estatMar);
         const flagState = Utils.flagState(element.estatBandera);
-        const flagSymbol = Utils.flag(element.estatBandera);
         const additionalInfo = Utils.moreInfo(element.infoAdicional);
 
         msg +=
@@ -91,8 +90,7 @@ function buildMessage(response, beach) {
           `Calidad del agua: ${seaQuality}\n` +
           `Medusas: ${hasJeallyfish}\n` +
           `Estado del mar: ${seaState}\n` +
-          `${flagState}${flagSymbol}` +
-          additionalInfo;
+          `${flagState}${additionalInfo}`;
       }
     });
   } else {

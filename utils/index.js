@@ -43,11 +43,11 @@ module.exports = {
   flagState: function(state) {
     switch (state) {
       case 1:
-        return 'Permitido bañarse\n';
+        return 'Permitido bañarse ✅\n';
       case 2:
-        return 'Bañarse con precaución\n';
+        return 'Bañarse con precaución ⚠️\n';
       case 3:
-        return 'Prohibido bañarse\n';
+        return 'Prohibido bañarse 🛑\n';
       default:
         return '';
     }
@@ -65,11 +65,11 @@ module.exports = {
   flag: function(state) {
     switch (state) {
       case 1:
-        return ' ✅';
+        return '✅';
       case 2:
-        return ' ⚠️';
+        return '⚠️';
       case 3:
-        return ' 🛑';
+        return '🛑';
       default:
         return '';
     }

@@ -20,36 +20,7 @@ module.exports.getConditions = function(data) {
       axios
         .get('http://es.surf-forecast.com/breaks/' + beachValidated.url)
         .then(function(response) {
-          const html = response.data;
-          const $ = cheerio.load(html);
-
-          $('.forecast_upcoming table.forecasts').filter(function() {
-            const wave = $(this)
-              .find('tr:nth-child(3)')
-              .children('td:nth-child(2)')
-              .find('img')
-              .attr('alt');
-
-            const period = $(this)
-              .find('tr:nth-child(4)')
-              .children('td:nth-child(2)')
-              .text()
-              .trim();
-
-            const wind = $(this)
-              .find('tr:nth-child(5)')
-              .children('td:nth-child(2)')
-              .find('img')
-              .attr('alt');
-
-            const windFormatted = Utils.removeBreakLine(wind);
-
-            data.msg +=
-              `Olas (m): ${wave}\n` +
-              `Periodo (s): ${period}\n` +
-              `Viento (km/h): ${windFormatted}\n`;
-          });
-
+          data.msg += buildMessage(response, data.beach);
           resolve(data);
         })
         .catch(error => {
@@ -63,4 +34,39 @@ module.exports.getConditions = function(data) {
 
 function validateBeach(beach) {
   return beaches.find(el => Utils.cleanString(beach) === el.name);
+}
+
+function buildMessage(response) {
+  const html = response.data;
+  const $ = cheerio.load(html);
+  let msg = '';
+
+  $('.forecast_upcoming table.forecasts').filter(function() {
+    const wave = $(this)
+      .find('tr:nth-child(3)')
+      .children('td:nth-child(2)')
+      .find('img')
+      .attr('alt');
+
+    const period = $(this)
+      .find('tr:nth-child(4)')
+      .children('td:nth-child(2)')
+      .text()
+      .trim();
+
+    const wind = $(this)
+      .find('tr:nth-child(5)')
+      .children('td:nth-child(2)')
+      .find('img')
+      .attr('alt');
+
+    const windFormatted = Utils.removeBreakLine(wind);
+
+    msg =
+      `Olas (m): ${wave}\n` +
+      `Periodo (s): ${period}\n` +
+      `Viento (km/h): ${windFormatted}\n`;
+  });
+
+  return msg;
 }

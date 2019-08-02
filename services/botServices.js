@@ -7,6 +7,7 @@ module.exports = class Bot {
     this.bot = null;
   }
 
+  // Reply the message
   sendMessage(response, msg) {
     this.bot.sendMessage(msg.from.id, response.msg, {
       replyToMessage: msg.message_id,
@@ -14,6 +15,12 @@ module.exports = class Bot {
     });
   }
 
+  // Handle promises error
+  handleError(error) {
+    console.log(error);
+  }
+
+  // Get beaches conditions
   getBeachConditions(msg, props) {
     const data = {
       msg: '',
@@ -22,14 +29,11 @@ module.exports = class Bot {
 
     beachServices
       .getConditions(data)
-      .then(response => {
-        return this.sendMessage(response, msg);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      .then(response => this.sendMessage(response, msg))
+      .catch(this.handleError);
   }
 
+  // Get a specific beach conditions with surf details
   getSurfConditions(msg, props) {
     const data = {
       msg: '',
@@ -39,25 +43,19 @@ module.exports = class Bot {
     beachServices
       .getConditions(data)
       .then(surfServices.getConditions)
-      .then(response => {
-        return this.sendMessage(response, msg);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      .then(response => this.sendMessage(response, msg))
+      .catch(this.handleError);
   }
 
+  //  Get all beaches name
   getBeachesList(msg) {
     beachServices
       .getList()
-      .then(response => {
-        return this.sendMessage(response, msg);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      .then(response => this.sendMessage(response, msg))
+      .catch(this.handleError);
   }
 
+  // Init all the bot listenings
   initListening() {
     this.bot.on(/^\/playa (.+)$/, this.getBeachConditions.bind(this));
     this.bot.on(/^\/surf (.+)$/, this.getSurfConditions.bind(this));
@@ -66,6 +64,7 @@ module.exports = class Bot {
     this.bot.start();
   }
 
+  // Init bot
   init(token) {
     this.bot = new TeleBot(token);
     this.initListening();

@@ -21,49 +21,7 @@ module.exports = {
       axios
         .get('https://www.barcelona.cat/dades/platges/platges.xml')
         .then(function(response) {
-          const obj = parser.getTraversalObj(response.data);
-          const jsonObj = parser.convertToJson(obj);
-          const infoMET = jsonObj.EstatActualPlatges.infoMET;
-
-          data.msg +=
-            `Agua: ${infoMET.temperaturaAigua}º\n` +
-            `Aire: ${infoMET.temperaturaAmbient}º\n` +
-            `Temperatura mínima: ${infoMET.temperaturaMinima}º\n` +
-            `Temperatura máxima: ${infoMET.temperaturaMaxima}º\n` +
-            `UVI: ${Utils.uvi(infoMET.radiacioUltraviolada)}\n`;
-
-          if (data.beach ===null || validateBeach(data.beach)) {
-            jsonObj.EstatActualPlatges.Platges.Platja.forEach(element => {
-              const beachNameClean = data.beach
-                ? Utils.cleanString(data.beach)
-                : null;
-
-              const nomPlatjaClean = Utils.cleanString(element.nomPlatja);
-
-              if (
-                beachNameClean === null ||
-                nomPlatjaClean === beachNameClean
-              ) {
-                const seaQuality = Utils.seaQuality(element.qualitatAigua);
-                const hasJeallyfish = Utils.hasJeallyfish(element.Meduses);
-                const seaState = Utils.seaQuality(element.estatMar);
-                const flagState = Utils.flagState(element.estatBandera);
-                const flagSymbol = Utils.flag(element.estatBandera);
-                const additionalInfo = Utils.moreInfo(element.infoAdicional);
-
-                data.msg +=
-                  `\n<b>${element.nomPlatja}</b>\n` +
-                  `Calidad del agua: ${seaQuality}\n` +
-                  `Medusas: ${hasJeallyfish}\n` +
-                  `Estado del mar: ${seaState}\n` +
-                  `${flagSymbol}${flagState}` +
-                  additionalInfo;
-              }
-            });
-          } else {
-            data.msg += `No hemos encontrado la playa <b>${data.beach}</b> en Barcelona`;
-          }
-
+          data.msg += buildMessage(response, data.beach);
           resolve(data);
         })
         .catch(error => {
@@ -100,4 +58,46 @@ module.exports = {
 
 function validateBeach(beach) {
   return beaches.find(el => Utils.cleanString(beach) === Utils.cleanString(el));
+}
+
+function buildMessage(response, beach) {
+  const obj = parser.getTraversalObj(response.data);
+  const jsonObj = parser.convertToJson(obj);
+  const infoMET = jsonObj.EstatActualPlatges.infoMET;
+
+  let msg =
+    `Agua: ${infoMET.temperaturaAigua}º\n` +
+    `Aire: ${infoMET.temperaturaAmbient}º\n` +
+    `Temperatura mínima: ${infoMET.temperaturaMinima}º\n` +
+    `Temperatura máxima: ${infoMET.temperaturaMaxima}º\n` +
+    `UVI: ${Utils.uvi(infoMET.radiacioUltraviolada)}\n`;
+
+  if (beach === null || validateBeach(beach)) {
+    jsonObj.EstatActualPlatges.Platges.Platja.forEach(element => {
+      const beachNameClean = beach ? Utils.cleanString(beach) : null;
+
+      const nomPlatjaClean = Utils.cleanString(element.nomPlatja);
+
+      if (beachNameClean === null || nomPlatjaClean === beachNameClean) {
+        const seaQuality = Utils.seaQuality(element.qualitatAigua);
+        const hasJeallyfish = Utils.hasJeallyfish(element.Meduses);
+        const seaState = Utils.seaQuality(element.estatMar);
+        const flagState = Utils.flagState(element.estatBandera);
+        const flagSymbol = Utils.flag(element.estatBandera);
+        const additionalInfo = Utils.moreInfo(element.infoAdicional);
+
+        msg +=
+          `\n<b>${element.nomPlatja}</b>\n` +
+          `Calidad del agua: ${seaQuality}\n` +
+          `Medusas: ${hasJeallyfish}\n` +
+          `Estado del mar: ${seaState}\n` +
+          `${flagState}${flagSymbol}` +
+          additionalInfo;
+      }
+    });
+  } else {
+    msg += `No hemos encontrado la playa <b>${beach}</b> en Barcelona`;
+  }
+
+  return msg;
 }

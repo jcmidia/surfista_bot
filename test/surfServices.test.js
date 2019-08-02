@@ -4,7 +4,7 @@ const surfRewire = rewire('../services/surfServices.js');
 const validateBeach = surfRewire.__get__('validateBeach');
 
 const beaches = [
-  { name: 'sansebastia', url: 'Playade-Sant-Sebastia' },
+  { name: 'santsebastia', url: 'Playade-Sant-Sebastia' },
   { name: 'barceloneta', url: 'Barceloneta' },
   { name: 'bogatell', url: 'Bogatell' },
   { name: 'novamarbella', url: 'Nova-Mar-Bella-Barcelona' },

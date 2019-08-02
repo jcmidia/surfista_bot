@@ -65,11 +65,11 @@ module.exports = {
   flag: function(state) {
     switch (state) {
       case 1:
-        return '✅';
+        return '✅ ';
       case 2:
-        return '⚠️';
+        return '⚠️ ';
       case 3:
-        return '🛑';
+        return '🛑 ';
       default:
         return '';
     }

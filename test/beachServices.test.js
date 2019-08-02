@@ -1,4 +1,7 @@
+const rewire = require('rewire');
 const beachServices = require('../services/beachServices.js');
+const beachRewire = rewire('../services/beachServices.js');
+const validateBeach = beachRewire.__get__('validateBeach');
 
 describe('Beach services', () => {
   test('getConditions function exists', () => {
@@ -7,6 +10,12 @@ describe('Beach services', () => {
 
   test('getList function exists', () => {
     expect(beachServices.getList).toBeDefined();
+  });
+
+  test('validate beach', () => {
+    expect(validateBeach('Barceloneta')).toBeTruthy();
+    expect(validateBeach('Marbella')).toBeTruthy();
+    expect(validateBeach('Montgat')).toBeFalsy();
   });
 
   test('getConditions returns an object', () => {

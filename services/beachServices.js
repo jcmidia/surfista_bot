@@ -32,7 +32,7 @@ module.exports = {
             `Temperatura máxima: ${infoMET.temperaturaMaxima}º\n` +
             `UVI: ${Utils.uvi(infoMET.radiacioUltraviolada)}\n`;
 
-          if (validateBeach(data.beach)) {
+          if (data.beach ===null || validateBeach(data.beach)) {
             jsonObj.EstatActualPlatges.Platges.Platja.forEach(element => {
               const beachNameClean = data.beach
                 ? Utils.cleanString(data.beach)

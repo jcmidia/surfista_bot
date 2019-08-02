@@ -43,13 +43,13 @@ module.exports = {
   flagState: function(state) {
     switch (state) {
       case 1:
-        return 'Bandera verde: Permitido bañarse';
+        return 'Permitido bañarse\n';
       case 2:
-        return 'Bandera amarilla: Bañarse con precaución';
+        return 'Bañarse con precaución\n';
       case 3:
-        return 'Bandera roja: Prohibido bañarse';
+        return 'Prohibido bañarse\n';
       default:
-        return 'Sin información';
+        return '';
     }
   },
 
@@ -75,11 +75,25 @@ module.exports = {
     }
   },
 
-  formatString: function(text) {
-    const newText = text
-      .toLowerCase()
-      .replace(new RegExp("[àáâãäå]", 'g'),"a")
-      .replace(/[^a-zA-Z]/g, '');
-    return newText;
+  cleanString: function(text) {
+    return text
+      ? text
+          .toLowerCase()
+          .replace(/[àáâãäå]/g, 'a')
+          .replace(/[óòõôø]/g, 'o')
+          .replace(/[íìïî]/g, 'i')
+          .replace(/[èéêë]/g, 'e')
+          .replace(/[úûù]/g, 'u')
+          .replace(/[^a-zA-Z]/g, '')
+      : '';
+  },
+
+  removeBreakLine(text) {
+    return text
+      ? text
+          .replace(/(\r\n|\n|\r)/gm, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+      : '';
   },
 };

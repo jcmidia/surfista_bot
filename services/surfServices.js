@@ -1,12 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const Utils = require('../utils/index.js');
 
 module.exports.getConditions = function(data) {
   return new Promise(function(resolve) {
-    // const d = new Date();
-    // const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    // const date = new Date(utc + (3600000*2));
-
     axios
       .get('http://es.surf-forecast.com/breaks/' + data.beach)
       .then(function(response) {
@@ -32,10 +29,12 @@ module.exports.getConditions = function(data) {
             .find('img')
             .attr('alt');
 
+          const windFormatted = Utils.removeBreakLine(wind);
+
           data.msg +=
             `Olas (m): ${wave}\n` +
             `Periodo (s): ${period}\n` +
-            `Viento (km/h): ${formatWind(wind)}\n`;
+            `Viento (km/h): ${windFormatted}\n`;
         });
 
         resolve(data);
@@ -46,7 +45,3 @@ module.exports.getConditions = function(data) {
       });
   });
 };
-
-function formatWind(wind) {
-  return wind ? wind.replace(/(\r\n|\n|\r)/gm, '') : null;
-}

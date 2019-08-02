@@ -1,6 +1,6 @@
 const axios = require('axios');
 const parser = require('fast-xml-parser');
-const Utils = require('../utils/states.js');
+const Utils = require('../utils/index.js');
 
 module.exports = {
   getConditions: function(data) {
@@ -20,13 +20,11 @@ module.exports = {
             `UVI: ${Utils.uvi(infoMET.radiacioUltraviolada)}\n`;
 
           jsonObj.EstatActualPlatges.Platges.Platja.forEach(element => {
-            if (data.beach === null) {
-              data.msg += `\n<b>${element.nomPlatja}</b>\n`;
-            }
-            
-            const beachNameClean = data.beach ? Utils.formatString(data.beach) : null;
-            const nomPlatjaClean = Utils.formatString(element.nomPlatja);
-            console.log(nomPlatjaClean);
+            const beachNameClean = data.beach
+              ? Utils.cleanString(data.beach)
+              : null;
+
+            const nomPlatjaClean = Utils.cleanString(element.nomPlatja);
 
             if (beachNameClean === null || nomPlatjaClean === beachNameClean) {
               const seaQuality = Utils.seaQuality(element.qualitatAigua);
@@ -37,10 +35,11 @@ module.exports = {
               const additionalInfo = Utils.moreInfo(element.infoAdicional);
 
               data.msg +=
+                `\n<b>${element.nomPlatja}</b>\n` +
                 `Calidad del agua: ${seaQuality}\n` +
                 `Medusas: ${hasJeallyfish}\n` +
                 `Estado del mar: ${seaState}\n` +
-                `${flagState} ${flagSymbol}\n` +
+                `${flagSymbol} ${flagState}` +
                 additionalInfo;
             }
           });

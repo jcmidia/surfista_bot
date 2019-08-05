@@ -1,8 +1,8 @@
 const http = require('http');
 const Bot = require('./services/botServices.js');
-
 const bot = new Bot();
-bot.init(process.env.TELEGRAM_TOKEN);
+
+bot.init();
 
 const PORT = process.env.PORT || 3000;
 http

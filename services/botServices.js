@@ -2,26 +2,12 @@ const TeleBot = require('telebot');
 const beachServices = require('../services/beachServices.js');
 const surfServices = require('../services/surfServices.js');
 
-module.exports = class Bot {
-  constructor() {
-    this.bot = null;
-  }
-
-  // Reply the message
-  sendMessage(response, msg) {
-    this.bot.sendMessage(msg.from.id, response.msg, {
-      replyToMessage: msg.message_id,
-      parseMode: 'html',
-    });
-  }
-
-  // Handle promises error
-  handleError(error) {
-    console.log(error);
-  }
+module.exports = function Bot() {
+  const token = process.env.TELEGRAM_TOKEN;
+  let bot = null;
 
   // Get beaches conditions
-  getBeachConditions(msg, props) {
+  function getBeachConditions(msg, props) {
     const data = {
       msg: '',
       beach: props.match ? props.match[1] : null,
@@ -29,12 +15,12 @@ module.exports = class Bot {
 
     beachServices
       .getConditions(data)
-      .then(response => this.sendMessage(response, msg))
-      .catch(this.handleError);
+      .then(response => sendMessage(response, msg))
+      .catch(handleError);
   }
 
   // Get a specific beach conditions with surf details
-  getSurfConditions(msg, props) {
+  function getSurfConditions(msg, props) {
     const data = {
       msg: '',
       beach: props.match ? props.match[1] : null,
@@ -43,30 +29,42 @@ module.exports = class Bot {
     beachServices
       .getConditions(data)
       .then(surfServices.getConditions)
-      .then(response => this.sendMessage(response, msg))
-      .catch(this.handleError);
+      .then(response => sendMessage(response, msg))
+      .catch(handleError);
   }
 
   //  Get all beaches name
-  getBeachesList(msg) {
+  function getBeachesList(msg) {
     beachServices
       .getList()
-      .then(response => this.sendMessage(response, msg))
-      .catch(this.handleError);
+      .then(response => sendMessage(response, msg))
+      .catch(handleError);
   }
 
-  // Init all the bot listenings
-  initListening() {
-    this.bot.on(/^\/playa (.+)$/, this.getBeachConditions.bind(this));
-    this.bot.on(/^\/surf (.+)$/, this.getSurfConditions.bind(this));
-    this.bot.on('/playas', this.getBeachConditions.bind(this));
-    this.bot.on('/listado', this.getBeachesList.bind(this));
-    this.bot.start();
+  // Reply the message
+  function sendMessage(response, msg) {
+    bot.sendMessage(msg.from.id, response.msg, {
+      replyToMessage: msg.message_id,
+      parseMode: 'html',
+    });
+  }
+
+  // Handle promises error
+  function handleError(error) {
+    console.log(error);
   }
 
   // Init bot
-  init(token) {
-    this.bot = new TeleBot(token);
-    this.initListening();
+  function init() {
+    bot = new TeleBot(token);
+    bot.on(/^\/playa (.+)$/, getBeachConditions.bind(this));
+    bot.on(/^\/surf (.+)$/, getSurfConditions.bind(this));
+    bot.on('/playas', getBeachConditions.bind(this));
+    bot.on('/listado', getBeachesList.bind(this));
+    bot.start();
   }
+
+  return {
+    init: init,
+  };
 };

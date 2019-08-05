@@ -6,10 +6,10 @@ It uses 2 different sources of data. The first one is a XML available in the [Aj
 You can check it out the bot working here: https://t.me/surfista_bot
 
 ## Commands availables
-- **/list:** return a list with all the beaches in Barcelona;
-- **/playas:** return a list with all the beachs and its state and forecast;
-- **/playa:** return the state and forecast for a specific beach. Here you should specify which beach you want, ej: /playa Barceloneta;
-- **/surf:** return the state, forecast and surf confitions for a specific beach.
+- **/listado:** returns a list with all the beaches in Barcelona;
+- **/playas:** returns a list with all the beachs and its state and forecast;
+- **/playa:** returns the state and forecast for a specific beach. Here you should specify which beach you want, ej: /playa Barceloneta;
+- **/surf:** returns the state, forecast and surf confitions for a specific beach.
 
 ## Tech stack
 - Webpack

@@ -60,12 +60,24 @@ function validateBeach(beach) {
   return beaches.find(el => Utils.cleanString(beach) === Utils.cleanString(el));
 }
 
+function getForecastEmoji(infoMET) {
+  const d = new Date();
+  const utc = d.getTime() + d.getTimezoneOffset() * 60000;
+  const date = new Date(utc + 3600000 * 2);
+  return date.getHours < 12
+    ? Utils.forecastEmoji(infoMET.previsioTempsMatiAvui)
+    : Utils.forecastEmoji(infoMET.previsioTempsTardaAvui);
+}
+
 function buildMessage(response, beach) {
   const obj = parser.getTraversalObj(response.data);
   const jsonObj = parser.convertToJson(obj);
   const infoMET = jsonObj.EstatActualPlatges.infoMET;
 
+  const forecastEmoji = getForecastEmoji(infoMET);
+
   let msg =
+    `${forecastEmoji + forecastEmoji + forecastEmoji}\n` +
     `Agua: ${infoMET.temperaturaAigua}º\n` +
     `Aire: ${infoMET.temperaturaAmbient}º\n` +
     `Temperatura mínima: ${infoMET.temperaturaMinima}º\n` +

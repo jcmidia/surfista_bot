@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node index.js",
     "pretest": "eslint --ignore-path .gitignore .",
-    "precommit": "npm run lint",
     "test": "jest"
   },
   "repository": {

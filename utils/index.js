@@ -1,6 +1,6 @@
 module.exports = {
   uvi: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 0:
         return 'Bajo';
       case 1:
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   seaQuality: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 1:
         return 'Bueno';
       case 2:
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   hasJeallyfish: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 1:
         return 'No';
       case 2:
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   flagState: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 1:
         return 'Permitido bañarse ✅\n';
       case 2:
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   moreInfo: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 5:
         return 'Residuos flotantes 💩\n';
       default:
@@ -63,7 +63,7 @@ module.exports = {
   },
 
   flag: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 1:
         return '✅';
       case 2:
@@ -76,7 +76,7 @@ module.exports = {
   },
 
   forecastEmoji: function(state) {
-    switch (state) {
+    switch (parseInt(state)) {
       case 1:
         return '☀️';
       case 2:
@@ -120,5 +120,20 @@ module.exports = {
           .replace(/\s+/g, ' ')
           .trim()
       : '';
+  },
+
+  getSpainDatetime() {
+    const spainDateString = new Date().toLocaleString('en-US', {
+      timeZone: 'Europe/Madrid',
+    });
+    return new Date(spainDateString);
+  },
+
+  getForecastEmoji(infoMET) {
+    const datetime = this.getSpainDatetime();
+
+    return datetime.getHours() < 12
+      ? this.forecastEmoji(infoMET.previsioTempsMatiAvui)
+      : this.forecastEmoji(infoMET.previsioTempsTardaAvui);
   },
 };

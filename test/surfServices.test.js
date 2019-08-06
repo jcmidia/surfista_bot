@@ -11,7 +11,7 @@ const beaches = [
 ];
 
 describe('Surf services', () => {
-  test('getConditions function exists', () => {
+  test('getConditions is defined', () => {
     expect(surfServices.getConditions).toBeDefined();
   });
 
@@ -34,7 +34,7 @@ describe('Surf services', () => {
     });
   });
 
-  test('getConditions return 404 error', () => {
+  test('getConditions returns 404 error', () => {
     const data = {
       msg: '',
       beach: 'Marbella',

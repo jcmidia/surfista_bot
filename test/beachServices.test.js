@@ -4,11 +4,11 @@ const beachRewire = rewire('../services/beachServices.js');
 const validateBeach = beachRewire.__get__('validateBeach');
 
 describe('Beach services', () => {
-  test('getConditions function exists', () => {
+  test('getConditions is defined', () => {
     expect(beachServices.getConditions).toBeDefined();
   });
 
-  test('getList function exists', () => {
+  test('getList is defined', () => {
     expect(beachServices.getList).toBeDefined();
   });
 
@@ -43,7 +43,7 @@ describe('Beach services', () => {
     });
   });
 
-  test('resolve getList', () => {
+  test('resolves getList', () => {
     return beachServices.getList().then(response => {
       expect(typeof response).toBe('object');
     });
